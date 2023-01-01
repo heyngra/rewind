@@ -1,2 +1,2 @@
 <h1 align="center">Rewind Web</h1>
-[Rewind](https://github.com/abstrakt8/rewind) fork with web support required by [osu!sniper](https://github.com/heyngra/osusniper/) 
+<a href="https://github.com/abstrakt8/rewind">Rewind</a> fork with web support required by <a href="https://github.com/heyngra/osusniper">osu!sniper</a>

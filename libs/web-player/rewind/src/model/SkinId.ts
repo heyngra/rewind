@@ -21,4 +21,4 @@ export function stringToSkinId(str: string): SkinId {
 }
 
 export const DEFAULT_OSU_SKIN_ID: SkinId = { source: "rewind", name: "OsuDefaultSkin" };
-export const DEFAULT_REWIND_SKIN_ID: SkinId = { source: "rewind", name: "RewindDefaultSkin" };
+export const DEFAULT_REWIND_SKIN_ID: SkinId = { source: "osu", name: "yugen" };

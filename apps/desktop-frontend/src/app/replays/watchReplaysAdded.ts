@@ -5,7 +5,11 @@ import { eventChannel, SagaIterator } from "redux-saga";
 // import { theaterStageChangeRequested } from "./theater/slice";
 
 function createWebSocketConnection(url: string) {
-  const socket = io(url);
+  const socket = io(url, {
+    extraHeaders: {
+      "Access-Control-Allow-Origin": "*",
+    }
+  });
   socket.on("connect", () => {
     console.log("Connected to WebSocket");
   });

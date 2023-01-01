@@ -24,10 +24,11 @@ export class ReplayWatcher {
   @postConstruct()
   initialize() {
     // Probably this should be somewhere else...
-    this.newReplays$.subscribe((replayId) => {
+    /*this.newReplays$.subscribe((replayId) => {
       // TODO: if settings also true
       this.scenarioManager.loadReplay(replayId);
-    });
+    });*/
+    // removed cuz it messes up everything
   }
 
   replayAddedHandler(replay: { filename: string }, beatmapMetaData: { md5Hash: string }) {
@@ -40,7 +41,11 @@ export class ReplayWatcher {
   }
 
   startWatching() {
-    const socket = io(this.wsUrl, {});
+    const socket = io(this.wsUrl, {
+      extraHeaders: {
+        "Access-Control-Allow-Origin": "*",
+      }
+    });
     // // https://github.com/socketio/socket.io/issues/474#issuecomment-289316361 Why though?
     socket.on("connect", () => {
       console.log(`ReplayWatcher: Connected to WebSocket with id = ${socket.id}`);

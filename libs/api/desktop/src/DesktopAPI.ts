@@ -138,6 +138,7 @@ async function normalBootstrap(settings: {
 
   const app = await NestFactory.create<NestExpressApplication>(RewindDesktopModule, {
     logger: createLogger(logDirectory),
+    cors: true,
   });
 
   app.setGlobalPrefix(globalPrefix);

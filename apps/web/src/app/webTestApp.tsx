@@ -14,14 +14,18 @@ const sidetrackedDay = "exported:Umbre - VINXIS - Sidetracked Day [Sojourn Colla
 const chosenBlueprintId = akatsukiId;
 const chosenReplayId = sidetrackedDay;
 // const skin = DEFAULT_SKIN_ID;
-const skin: SkinId = { source: "osu", name: "-        # re;owoTuna v1.1 『Selyu』 #        -" };
+const skin: SkinId = { source: "osu", name: "Incandescent Nebulae (ekoro edit)" };
 
 export function WebTestApp() {
   const theater = useCommonManagers();
   const analyzer = useAnalysisApp();
   useEffect(() => {
-    // theater.changeSkin(skin);
-    analyzer.loadReplay(chosenReplayId);
+     //theater.changeSkin(skin);
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("scoreId") === null) {
+      return;
+    }
+    analyzer.loadReplay("local:"+"E:\\github\\osutwt\\rewind\\Replays\\"+params.get("scoreId")+".osr"); // here you need to put your path to this folder
   }, []);
   return (
     <Box sx={{ height: "100vh" }}>

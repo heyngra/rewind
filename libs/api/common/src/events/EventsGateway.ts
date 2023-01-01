@@ -22,10 +22,13 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @OnEvent(ReplayWatchEvents.ReplayRead)
   async handleReplayAdded(event: ReplayReadEvent) {
     const { replay, filename } = event.payload;
-    const blueprintMetaData = await this.blueprintService.getBlueprintByMD5(replay.beatmapMD5);
-
-    this.logger.log("Replay added ", replay.replayMD5);
-    this.server.emit("replayAdded", { filename }, blueprintMetaData);
+    try {
+      const blueprintMetaData = await this.blueprintService.getBlueprintByMD5(replay.beatmapMD5);
+      this.logger.log("Replay added ", replay.replayMD5);
+      this.server.emit("replayAdded", { filename }, blueprintMetaData);
+    } catch (e) {
+      this.logger.error("The replay isn't working properly: ", e);
+    }
   }
 
   handleDisconnect(client: Socket) {

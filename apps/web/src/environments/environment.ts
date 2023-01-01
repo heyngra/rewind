@@ -3,5 +3,5 @@
 
 export const environment = {
   production: false,
-  url: "http://localhost:7271",
+  url: "https://replay2.heyn.live" // this is the URL that points to desktop-backend
 };

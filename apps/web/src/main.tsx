@@ -9,6 +9,7 @@ import { createRewindTheater } from "@rewind/web-player/rewind";
 // This project assumes that the backend is already initialized
 
 const apiUrl = environment.url;
+
 export const theater = createRewindTheater({ apiUrl });
 theater.common.initialize();
 theater.analyzer.startWatching();

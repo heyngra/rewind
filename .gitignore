@@ -41,3 +41,9 @@ Thumbs.db
 
 # Custom
 /logs/
+/replays/*
+/tempReplays/*
+/tempSongs/*
+/Songs/*
+scores.db
+osu!.db

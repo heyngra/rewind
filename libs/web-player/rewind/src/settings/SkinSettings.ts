@@ -9,7 +9,7 @@ export interface SkinSettings {
 }
 
 export const DEFAULT_SKIN_SETTINGS: SkinSettings = Object.freeze({
-  preferredSkinId: "rewind:RewindDefaultSkin",
+  preferredSkinId: "osu:- # BTMC⌞Freedom Dive  ↓⌝",
 });
 
 export const SkinSettingsSchema: JSONSchemaType<SkinSettings> = {

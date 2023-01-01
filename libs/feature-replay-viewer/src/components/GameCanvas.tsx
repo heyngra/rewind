@@ -17,13 +17,7 @@ function EmptyState() {
       <Stack gap={1} alignItems={"center"} direction={"row"}>
         <Box component={LightningBoltIcon} sx={{ height: "1em", color: "text.secondary" }} />
         <Typography color={"text.secondary"}>
-          In osu! press F2 while being at a score/fail screen to load the replay
-        </Typography>
-      </Stack>
-      <Stack gap={1} alignItems={"center"} direction={"row"}>
-        <Box component={LightningBoltIcon} sx={{ height: "1em", color: "text.secondary" }} />
-        <Typography color={"text.secondary"}>
-          You can also load a replay with the menu action "File &gt; Open Replay (Ctrl+O)"
+          Visit <a href={"https://twitter.com/osusniper"}>osu! sniper</a> for a replay link!
         </Typography>
       </Stack>
     </Stack>

@@ -25,7 +25,7 @@ export function WebTestApp() {
     if (params.get("scoreId") === null) {
       return;
     }
-    analyzer.loadReplay("local:"+"E:\\github\\osutwt\\rewind\\Replays\\"+params.get("scoreId")+".osr"); // here you need to put your path to this folder
+    analyzer.loadReplay("local:"+"Replays/"+params.get("scoreId")+".osr"); // here you need to put your path to this folder
   }, []);
   return (
     <Box sx={{ height: "100vh" }}>

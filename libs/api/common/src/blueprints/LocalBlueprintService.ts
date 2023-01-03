@@ -36,16 +36,21 @@ function mapToLocalBlueprint(
 @Injectable()
 export class LocalBlueprintService {
   blueprints: Record<string, BlueprintInfo> = {};
+
+  private checked : string[] = [];
+
+  lastModifiedTime: number = 0;
+
   private logger = new Logger(LocalBlueprintService.name);
 
   constructor(private readonly osuDbDao: OsuDBDao, @Inject(OSU_SONGS_FOLDER) private readonly songsFolder: string) {}
 
   async completeRead() {
-    const freshBlueprints = await this.osuDbDao.getAllBlueprints();
-    const lastModifiedTime = await this.osuDbDao.getOsuDbLastModifiedTime();
+    //const freshBlueprints = await this.osuDbDao.getAllBlueprints();
+    const freshBlueprints: BlueprintInfo[] = [];
 
     this.logger.log("Reading the osu!/Songs folder");
-    const candidates = await getNewFolderCandidates(this.songsFolder, new Date(lastModifiedTime));
+    const candidates = await getNewFolderCandidates(this.songsFolder, new Date(this.lastModifiedTime));
     if (candidates.length > 0) {
       this.logger.log(`Candidates: ${candidates.length} : ${candidates.join(",")}`);
     }
@@ -53,6 +58,9 @@ export class LocalBlueprintService {
       const osuFiles = await listOsuFiles(join(this.songsFolder, songFolder));
       for (const osuFile of osuFiles) {
         const fileName = join(this.songsFolder, songFolder, osuFile);
+        if (fileName in this.checked) {
+          continue;
+        }
         this.logger.log(`Reading file ${fileName}`);
         const data = await readFile(fileName);
         const hash = createHash("md5");
@@ -60,11 +68,11 @@ export class LocalBlueprintService {
         const md5Hash = hash.digest("hex");
         const blueprint = await parseBlueprint(data.toString("utf-8"), { sectionsToRead: METADATA_SECTIONS_TO_READ });
         freshBlueprints.push(mapToLocalBlueprint(blueprint, osuFile, songFolder, md5Hash));
+        this.checked.push(fileName);
       }
     }
-
-    this.blueprints = {};
     freshBlueprints.forEach(this.addNewBlueprint.bind(this));
+    this.lastModifiedTime = Date.now();
     return this.blueprints;
   }
 
@@ -80,7 +88,7 @@ export class LocalBlueprintService {
       return true;
     }
     const s = await stat(this.songsFolder);
-    const t = await this.osuDbDao.getOsuDbLastModifiedTime();
+    const t = this.lastModifiedTime;
     return s.mtime.getTime() > t;
   }
 

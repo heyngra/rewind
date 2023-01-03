@@ -32,10 +32,11 @@ export class ReplayWatcher {
   }
 
   replayAddedHandler(replay: { filename: string }, beatmapMetaData: { md5Hash: string }) {
+    if (beatmapMetaData === null) {
+      return;
+    }
     const { md5Hash } = beatmapMetaData;
-
     console.log(`WebSocket: Replay added: ${replay.filename}, ${md5Hash}`);
-
     const replayId = "exported:" + replay.filename;
     this.newReplays$.next(replayId);
   }
@@ -54,6 +55,6 @@ export class ReplayWatcher {
       console.log("ReplayWatcher: Disconnected from WebSocket");
     });
     // const listener = this.replayAddedHandler.bind(this);
-    socket.on("replayAdded", this.replayAddedHandler.bind(this));
+    //socket.on("replayAdded", this.replayAddedHandler.bind(this));
   }
 }
